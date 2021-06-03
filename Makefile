@@ -3,9 +3,22 @@
 BUILD_ID := $(shell git rev-parse --short HEAD 2>/dev/null || echo no-commit-id)
 IMAGE_NAME := ipenguin/cbp
 
+#######################################
+# Helper targets:
+#######################################
+
+# Parse the Makefile and show any targets with comments
 .PHONY: help
 help: ## Show available targets
 	@cat Makefile* | grep -E '^[a-zA-Z_-]+:.*?## .*$$' | sort | awk 'BEGIN {FS = ":.*?## "}; {printf "\033[36m%-30s\033[0m %s\n", $$1, $$2}'
+
+.PHONY: clean
+clean: ## Cleanup build files
+	rm -rf build/*
+
+#######################################
+# Build process targets:
+#######################################
 
 .PHONY: fmt
 fmt: ## Format Go code
@@ -36,7 +49,3 @@ container: build/cbp ## Create the docker images
 push: container ## Push the docker image to docker hub with tags 'latest' & 'BUILD_ID'
 	docker push $(IMAGE_NAME):$(BUILD_ID)
 	docker push $(IMAGE_NAME):latest
-
-.PHONY: clean
-clean: ## Cleanup build files
-	rm -rf build/*
