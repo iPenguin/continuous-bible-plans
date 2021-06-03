@@ -17,6 +17,7 @@ import (
 	"github.com/ipenguin/continuous-bible-plans/internal/read"
 	"github.com/ipenguin/continuous-bible-plans/internal/resources"
 	"github.com/ipenguin/continuous-bible-plans/internal/signup"
+	"github.com/ipenguin/continuous-bible-plans/internal/tags"
 )
 
 var cookieHandler = securecookie.New(
@@ -27,8 +28,7 @@ func main() {
 
 	router := mux.NewRouter()
 
-	//TODO: get from config
-	//router.Host("")
+	// static resource files
 	for _, page := range resources.PageNames() {
 		log.Println("Setting resource routes: " + page)
 		router.PathPrefix(page + "/").Handler(http.FileServer(http.Dir("./assets/")))
@@ -62,6 +62,11 @@ func main() {
 	for _, page := range dashboard.PageNames() {
 		log.Println("Setting index route: " + page)
 		router.HandleFunc(page, dashboard.GeneratePage)
+	}
+
+	for _, page := range tags.PageNames() {
+		log.Println("Setting index route: " + page)
+		router.HandleFunc(page, tags.GeneratePage)
 	}
 
 	http.ListenAndServe(":8080", router)
