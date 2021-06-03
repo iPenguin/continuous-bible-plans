@@ -1,20 +1,6 @@
 body {
     background-image: url(/images/2tim3-16.jpg);
     background-size: cover;
-    font-family: sans-serif;
-    margin: 0;
-}
-
-.header {
-    background-color: #1878a9;
-    display: flex;
-    height: 60px;
-    opacity: 0.9;
-    width: 100%;
-}
-
-.header div {
-    opacity: 1;
 }
 
 .fbp_title {
@@ -26,24 +12,6 @@ body {
     margin: 1em;
     padding: .5em 1em;
     width: max-content;
-}
-
-.header .login {
-    flex-grow: 1;
-    float: left;
-    margin: 1em;
-}
-.header .signup {
-    flex-grow: 0;
-    flex-shrink: 0;
-    float: right;
-    margin: 1em;
-}
-.header .search {
-    flex-grow: 0;
-    flex-shrink: 0;
-    float: right;
-    margin: 1em;
 }
 
 .main_footer {
