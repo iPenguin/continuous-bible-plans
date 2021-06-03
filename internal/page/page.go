@@ -4,14 +4,14 @@ import (
 	"html/template"
 	"log"
 	"net/http"
-
-	"github.com/gorilla/mux"
 )
 
-type Page interface {
-	GeneratePage(router mux.Router)
-	PageNames() string
+type Page struct {
+	name           string
+	page_generator func(response http.ResponseWriter, request *http.Request)
 }
+
+var all_pages []Page
 
 func GeneratePage(response http.ResponseWriter, templateName string) {
 	parsedTemplate, _ := template.ParseFiles(templateName)
@@ -20,4 +20,12 @@ func GeneratePage(response http.ResponseWriter, templateName string) {
 		log.Println("Error executing template :", err)
 		return
 	}
+}
+
+func AddPages(p Page) {
+	all_pages = append(all_pages, p)
+}
+
+func AllPages() []Page {
+	return all_pages
 }

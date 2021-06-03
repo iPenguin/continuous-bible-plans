@@ -1,4 +1,4 @@
-package prayer
+package dashboard
 
 import (
 	"log"
@@ -9,7 +9,7 @@ import (
 
 const (
 	// Define the URL for this page
-	_pageName = "/prayer"
+	_pageName = "/dashboard"
 )
 
 type TestData struct {
@@ -25,5 +25,5 @@ func PageNames() []string {
 func GeneratePage(response http.ResponseWriter, request *http.Request) {
 
 	log.Println(request.URL.Path)
-	page.GeneratePage(response, "assets/templates/prayer.html")
+	page.GeneratePage(response, "assets/templates/dashboard.html")
 }
